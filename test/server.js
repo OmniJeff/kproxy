@@ -5,7 +5,7 @@ const Proxyquire = require('proxyquire').noPreserveCache()
 const Stubs = require('./stubs/server')
 
 let HapiStub = {}
-let Server = Proxyquire('../lib/server', { 'hapi': HapiStub })
+let Server = Proxyquire('../lib/server', { 'hapi': HapiStub,  })
 
 const describe = require('mocha').describe
 // const before = require('mocha').before
@@ -28,6 +28,26 @@ describe('my hapi server', () => {
       expect(body).to.exist
       expect(res.statusCode).to.equal(200)
       expect(JSON.parse(body)).to.eql({ success: true })
+      done()
+    })
+  })
+
+  it('responds to a /track GET', (done) => {
+    Request('http://localhost:8000/track', (err, res, body) => {
+      expect(err).to.not.exist
+      expect(res).to.exist
+      expect(body).to.exist
+      expect(res.statusCode).to.equal(204)
+      done()
+    })
+  })
+
+  it('responds to a /list-streams GET', (done) => {
+    Request('http://localhost:8000/list-streams', (err, res, body) => {
+      expect(err).to.not.exist
+      expect(res).to.exist
+      expect(body).to.exist
+      expect(res.statusCode).to.equal(200)
       done()
     })
   })

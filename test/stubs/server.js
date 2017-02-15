@@ -13,5 +13,10 @@ module.exports = {
       this.register = () => {}
       this.log = () => {}
     }
+  },
+  kinesisStub: {
+    listStreams: (obj, cb) => {
+      cb(new Error('uh-oh'))
+    }
   }
 }
