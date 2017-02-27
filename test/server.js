@@ -5,7 +5,7 @@ const Proxyquire = require('proxyquire').noPreserveCache()
 const Stubs = require('./stubs/server')
 
 let HapiStub = {}
-let Server = Proxyquire('../lib/server', { 'hapi': HapiStub,  })
+let Server = Proxyquire('../lib/server', { 'hapi': HapiStub })
 
 const describe = require('mocha').describe
 // const before = require('mocha').before

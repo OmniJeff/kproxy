@@ -1,9 +1,10 @@
 'use strict'
 
+const Config = require('../lib/config')
 const Proxyquire = require('proxyquire').noPreserveCache()
 const KinesisStub = require('./stubs/kinesis')
 
-let Handler = Proxyquire('../lib/handlers/list-streams', { '@heroku/kinesis': KinesisStub })
+let Handler = Proxyquire('../lib/handlers/list-streams', { '@heroku/kinesis': KinesisStub })(Config, {})
 
 const Chai = require('chai')
 const Mocha = require('mocha')
@@ -25,8 +26,7 @@ describe('list-streams handler', () => {
     try {
       let request = {}
       let reply = (obj) => {}
-      expect(KinesisStub()).to.throw
-      done()
+      expect(Handler(request, reply)).to.throw
     } catch (err) {
       expect(err).to.exist
       done()
